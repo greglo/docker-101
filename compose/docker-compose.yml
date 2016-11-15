@@ -1,0 +1,18 @@
+version: "2"
+
+services:
+  selenium:
+    image: selenium/hub:2.53.0
+    container_name: selenium
+    ports:
+      - "4444:4444"
+
+  chrome:
+    image: selenium/node-chrome-debug:2.53.0
+    depends_on:
+      - selenium
+    environment:
+      - HUB_PORT_4444_TCP_ADDR=selenium
+      - HUB_PORT_4444_TCP_PORT=4444
+    ports:
+      - "5901:5900"
